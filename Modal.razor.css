@@ -1,0 +1,85 @@
+﻿::deep .modal {
+    border-color: var(--primary-color);
+}
+
+.modal-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: none;
+    background-color: rgba(0,0,0,0);
+  }
+  
+.modal-container {
+    position: absolute;
+    width: 50%;
+    height: max-content;
+    top: -30%;
+    left: 30%;
+    padding: .5em 1.5em;
+    display: flex;
+    justify-content: center;
+
+    background-color: transparent;
+    transition: top ease-in .3s;
+
+}
+
+.modal-modal.show {
+    display: block;
+}
+
+.modal-modal.show .modal-container {
+    animation: .35s ease-in alternate show-modal;
+    top: 30%;
+}
+
+.modal-container-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    background-color: #fff; 
+    width: 100%;
+
+    color: #000000; 
+    text-align: center; 
+    border: 2px solid var(--primary-color);
+    box-shadow: var(--primary-color) 0px 1px 4px, var(--primary-color) 0px 0px 0px 3px;
+    padding: 2rem;
+}
+
+.modal-container-wrapper .button-container .button {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.modal-container-wrapper .modal-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.modal-text {
+    margin-top: 1.5em;
+    font-size: 1rem; 
+}
+
+.modal-container .button-container {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    gap: 2.5em;
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+@keyframes show-modal {
+    from {
+        top: -30%;
+    }
+    to {
+        top: 30%;
+    }
+}

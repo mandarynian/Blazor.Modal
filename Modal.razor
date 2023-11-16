@@ -1,0 +1,58 @@
+﻿@implements IDisposable;
+
+@{
+    var isShow = IsVisible ? "show" : "";
+
+    <div class="modal @isShow">
+        <div class="modal-container ">
+            <div class="modal-container-wrapper">
+            <p class="modal-text">@Text</p>
+            <div class="button-container">
+                <button class="button finish-button" @onclick="@(() => SubmiteCallback?.Invoke())">@SubmiteText</button>
+                <button class="button return-button" @onclick="@(() => CloseCallback?.Invoke())" >@CloseText</button>
+            </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code{
+
+  [Parameter] public bool IsVisible { get; set; }
+  [Parameter] public Action CloseCallback { get; set; } 
+  [Parameter] public Action SubmiteCallback { get; set; } 
+  [Parameter] public string Text { get; set; } 
+  [Parameter] public string SubmiteText { get; set; } 
+  [Parameter] public string CloseText { get; set; } 
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        CloseCallback += Hide;
+        SubmiteCallback += Hide;
+    }
+
+    public void Show(string text, string submuiteText = "Zakończ", string closeText = "Anuluj")
+    {
+        Text = text;
+        SubmiteText = submuiteText;
+        CloseText = closeText;
+        IsVisible = true;
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Hide() 
+    {
+        IsVisible = false;
+        InvokeAsync(StateHasChanged);
+        Dispose();
+    }
+
+    public void Dispose()
+    {
+        CloseCallback = null;
+        SubmiteCallback = null;
+    }
+
+}
